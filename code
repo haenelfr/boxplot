@@ -1,0 +1,61 @@
+df <- read.csv("df.csv")
+
+# Boxplot
+ggplot(df, aes(x = lane, y = diameter, fill = lane)) +
+    geom_boxplot() +
+    labs(
+        title = "Boxplot",
+        x = "line",
+        y = "diameter"
+    )
+# Violinplot
+ggplot(df, aes(x = lane, y = diameter, fill = lane)) +
+    geom_violin(trim=FALSE) +
+    labs(
+        title = "Violinplot",
+        x = "line",
+        y = "diameter"
+    )
+
+# Swarmplot
+ggplot(df, aes(x = lane, y = diameter, color = lane)) +
+    geom_beeswarm(cex = 3) +
+    labs(
+        title = "Swarmplot",
+        x = "line",
+        y = "diameter"
+    )
+
+#RainCloud-Plot
+ggplot(df,aes(x = lane, y = diameter, fill = lane)) +
+stat_halfeye(
+    # adjust bandwidth
+    adjust = 0.5,
+    # move to the right
+    justification = -0.2,
+    # remove the slub interval
+    .width = 0,
+    point_colour = NA
+) +
+    geom_boxplot(
+        width = 0.12,
+        # removing outliers
+        outlier.color = NA,
+        alpha = 0.5
+    ) +
+    stat_dots(
+        # ploting on left side
+        side = "left",
+        # adjusting position
+        justification = 1.1,
+        # adjust grouping (binning) of observations
+        binwidth = 0.05
+    ) +
+    # Themes and Labels
+   
+     labs(
+        title = "RainCloud Plot",
+        x = "line",
+        y = "diameter"
+    ) +
+    coord_flip()
